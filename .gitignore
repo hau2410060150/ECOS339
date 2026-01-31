@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
