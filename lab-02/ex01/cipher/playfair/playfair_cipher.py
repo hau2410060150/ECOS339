@@ -3,7 +3,7 @@ class PlayfairCipher:
         pass
 
     def create_playfair_matrix(self, key: str):
-        key = str(key)                
+        key = str(key)
         key = key.replace("J", "I").upper()
         key_set = []
 
