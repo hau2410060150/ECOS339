@@ -1,11 +1,36 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from cipher.caesar import CaesarCipher
 from cipher.playfair import PlayfairCipher
+
+
 
 app = Flask(__name__)
 
 caesar_cipher = CaesarCipher()
 playfair_cipher = PlayfairCipher()
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+@app.route("/caesar")
+def caesar_page():
+    return render_template("caesar.html")
+
+@app.route("/encrypt", methods=["POST"])
+def encrypt_page():
+    text = request.form['inputPlainText']
+    key = request.form['inputKeyPlain']
+    encrypt_page = caesar_cipher.encrypt_text(text, int(key))
+    return f"text: {text} <br> key: {key} <br> encrypted text: {encrypt_page}"
+
+@app.route("/decrypt", methods=["POST"])
+def decrypt_page():
+    text = request.form['inputCipherText']
+    key = request.form['inputKeyCipher']
+    decrypt_page = caesar_cipher.decrypt_text(text, int(key))
+    return f"text: {text} <br> key: {key} <br> decrypted text: {decrypt_page}"
 
 
 @app.route("/api/caesar/encrypt", methods=["POST"])
